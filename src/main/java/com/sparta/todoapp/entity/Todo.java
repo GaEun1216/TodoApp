@@ -6,9 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
+@Table(name = "todo")
 @NoArgsConstructor
 public class Todo {
 
@@ -26,6 +29,9 @@ public class Todo {
     private String password;
 
     private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "todo",cascade = CascadeType.REMOVE)
+    private List<Comment> comments = new ArrayList<>();
 
     @Builder
     public Todo(String title, String content, String userName, String password) {

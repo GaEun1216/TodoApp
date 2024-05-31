@@ -31,7 +31,7 @@ public class TodoService {
         return todoRepository.findAll(Sort.by("createdAt").descending());
     }
 
-    public Todo updqteTodo(Long todoId, TodoRequestDto dto) {
+    public Todo updateTodo(Long todoId, TodoRequestDto dto) {
         Todo todo = checkAndGetTodo(todoId,dto.getPassword());
         todo.setTitle(dto.getTitle());
         todo.setContent(dto.getContent());

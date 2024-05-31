@@ -50,6 +50,7 @@ public class TodoController {
         List<Todo> todos = todoService.getTodos();
         List<TodoResponseDto> responses = todos.stream().map(TodoResponseDto::new)
                 .collect(Collectors.toList());
+
         return ResponseEntity.ok().body(CommonResponse.<List<TodoResponseDto>>builder()
                 .statusCode(HttpStatus.OK.value())
                 .msg("일정 조회가 완료되었습니다.")
@@ -59,7 +60,7 @@ public class TodoController {
     // 일정 변경
     @PutMapping("/{todoId}")
     public ResponseEntity<CommonResponse<TodoResponseDto>> putTodo(@PathVariable Long todoId,@RequestBody TodoRequestDto dto){
-        Todo todo = todoService.updqteTodo(todoId, dto);
+        Todo todo = todoService.updateTodo(todoId, dto);
         TodoResponseDto response = new TodoResponseDto(todo);
         return ResponseEntity.ok().body(CommonResponse.<TodoResponseDto>builder()
                 .statusCode(HttpStatus.OK.value())

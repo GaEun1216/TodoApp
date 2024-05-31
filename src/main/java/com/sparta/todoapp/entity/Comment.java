@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Table(name = "comment")
 @NoArgsConstructor
 public class Comment {
 
@@ -38,12 +39,6 @@ public class Comment {
     public Comment(CommentRequestDto request){
         this.contents = request.getContents();
         this.userId = request.getUserId();
-    }
-
-    public Comment(String contents,String userId) {
-        this.contents = contents;
-        this.userId = userId;
-
     }
 
     public void setTodo(Todo todo) {
