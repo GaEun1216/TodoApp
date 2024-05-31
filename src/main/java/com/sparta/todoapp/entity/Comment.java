@@ -3,11 +3,13 @@ package com.sparta.todoapp.entity;
 import com.sparta.todoapp.dto.CommentRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Comment {
 
     @Id
@@ -41,5 +43,9 @@ public class Comment {
 
     public void setCreatedAt() {
         this.createdAt = LocalDateTime.now();
+    }
+
+    public void update(CommentRequestDto dto) {
+        this.contents = dto.getContents();
     }
 }
