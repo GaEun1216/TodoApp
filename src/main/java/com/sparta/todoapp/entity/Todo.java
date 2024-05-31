@@ -1,13 +1,10 @@
-package com.sparta.todoapp.repository;
+package com.sparta.todoapp.entity;
 
-import com.sparta.todoapp.controller.TodoRequestDto;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter

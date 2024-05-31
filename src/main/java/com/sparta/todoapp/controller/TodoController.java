@@ -2,13 +2,13 @@ package com.sparta.todoapp.controller;
 
 
 import com.sparta.todoapp.CommonResponse;
-import com.sparta.todoapp.repository.Todo;
+import com.sparta.todoapp.dto.TodoRequestDto;
+import com.sparta.todoapp.dto.TodoResponseDto;
+import com.sparta.todoapp.entity.Todo;
 import com.sparta.todoapp.service.TodoService;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

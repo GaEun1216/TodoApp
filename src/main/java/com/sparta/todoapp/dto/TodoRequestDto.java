@@ -1,7 +1,6 @@
-package com.sparta.todoapp.controller;
+package com.sparta.todoapp.dto;
 
-import com.sparta.todoapp.repository.Todo;
-import lombok.Builder;
+import com.sparta.todoapp.entity.Todo;
 import lombok.Getter;
 import lombok.Setter;
 

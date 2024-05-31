@@ -1,7 +1,7 @@
 package com.sparta.todoapp.service;
 
-import com.sparta.todoapp.controller.TodoRequestDto;
-import com.sparta.todoapp.repository.Todo;
+import com.sparta.todoapp.dto.TodoRequestDto;
+import com.sparta.todoapp.entity.Todo;
 import com.sparta.todoapp.repository.TodoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
