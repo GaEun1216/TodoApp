@@ -23,20 +23,34 @@ public class CommentController {
 
     // 2. 댓글 등록
     @PostMapping("/{id}")
-    public CommentResponseDto createComment(@PathVariable Long id, @RequestBody CommentRequestDto requestDto) {
-        return commentService.createComment(id, requestDto);
+    public ResponseEntity<CommonResponse<CommentResponseDto>> createComment(@PathVariable Long id, @RequestBody CommentRequestDto requestDto) {
+        CommentResponseDto response = commentService.createComment(id, requestDto);
+        return ResponseEntity.ok().body(CommonResponse.<CommentResponseDto>builder()
+                .statusCode(HttpStatus.OK.value())
+                .msg("댓글 등록이 완료되었습니다.")
+                .data(response).build());
     }
+
+
 
     // 3. 댓글 수정
     @PutMapping("/{Todoid}/{Commentid}")
-    public CommentResponseDto putComment(@PathVariable Long Todoid,@PathVariable Long Commentid, @RequestBody CommentRequestDto dto){
-        return commentService.updateComment(Todoid,Commentid, dto);
+    public ResponseEntity<CommonResponse<CommentResponseDto>> putComment(@PathVariable Long Todoid,@PathVariable Long Commentid, @RequestBody CommentRequestDto dto){
+        CommentResponseDto response = commentService.updateComment(Todoid,Commentid, dto);
+        return ResponseEntity.ok().body(CommonResponse.<CommentResponseDto>builder()
+                .statusCode(HttpStatus.OK.value())
+                .msg("댓글 수정이 완료되었습니다.")
+                .data(response).build());
     }
 
     // 4. 댓글 삭제
     @DeleteMapping("/{Todoid}/{Commentid}")
-    public void deleteComment(@PathVariable Long Todoid,@PathVariable Long Commentid, @RequestBody CommentRequestDto dto){
+    public ResponseEntity<CommonResponse> deleteComment(@PathVariable Long Todoid,@PathVariable Long Commentid, @RequestBody CommentRequestDto dto){
         commentService.deleteComment(Todoid, Commentid, dto);
+        return ResponseEntity.ok().body(CommonResponse.builder()
+                .statusCode(HttpStatus.OK.value())
+                .msg("댓글 삭제가 완료되었습니다.")
+                .build());
     }
 
 
