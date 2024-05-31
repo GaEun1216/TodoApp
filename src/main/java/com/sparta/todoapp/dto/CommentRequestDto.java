@@ -16,7 +16,7 @@ public class CommentRequestDto {
 
     private Long Id;
     private String contents;
-    private Long userId;
+    private String userId;
     private LocalDateTime createdAt;
     private Long TodoId;
 

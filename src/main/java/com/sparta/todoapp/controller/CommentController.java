@@ -27,11 +27,16 @@ public class CommentController {
         return commentService.createComment(id, requestDto);
     }
 
-    // 3. 댓글 변경
+    // 3. 댓글 수정
     @PutMapping("/{Todoid}/{Commentid}")
     public CommentResponseDto putComment(@PathVariable Long Todoid,@PathVariable Long Commentid, @RequestBody CommentRequestDto dto){
         return commentService.updateComment(Todoid,Commentid, dto);
+    }
 
+    // 4. 댓글 삭제
+    @DeleteMapping("/{Todoid}/{Commentid}")
+    public void deleteComment(@PathVariable Long Todoid,@PathVariable Long Commentid, @RequestBody CommentRequestDto dto){
+        commentService.deleteComment(Todoid, Commentid, dto);
     }
 
 

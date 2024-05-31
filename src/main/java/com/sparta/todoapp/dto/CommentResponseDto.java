@@ -14,11 +14,9 @@ public class CommentResponseDto {
 
     private Long id;
 
-    private String title;
-
     private String contents;
 
-    private Long userId;
+    private String userId;
 
     private Long TodoId;
 
@@ -26,7 +24,7 @@ public class CommentResponseDto {
 
 
     public CommentResponseDto(Comment comment) {
-        this.id = comment.getId();
+        this.id = comment.getCommentId();
         this.contents = comment.getContents();
         this.userId = comment.getUserId();
         this.TodoId = comment.getTodo().getTodoId();

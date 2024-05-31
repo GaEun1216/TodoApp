@@ -33,18 +33,32 @@ public class CommentService {
 
     @Transactional
     public CommentResponseDto updateComment(Long Todoid, Long Commentid, CommentRequestDto dto) {
-        Comment updatecomment = findCommentById(Commentid);
-        if(updatecomment.getTodo().getTodoId() != Todoid){
-            throw new IllegalArgumentException("존재하지 않는 댓글입니다.");
-        }
+        Comment updatecomment = filter(Todoid,Commentid,dto);
         updatecomment.update(dto);
         CommentResponseDto response = new CommentResponseDto(updatecomment);
         return  response;
+    }
 
+    public void deleteComment(Long Todoid, Long Commentid, CommentRequestDto dto) {
+        Comment deletecomment = filter(Todoid,Commentid,dto);
+        commentRepository.delete(deletecomment);
+    }
 
+    // 예외 처리 필터링 함수
+    private Comment filter(Long todoid, Long commentid, CommentRequestDto dto){
+        Comment resultcomment = findCommentById(commentid);
+        if(resultcomment.getTodo().getTodoId() != todoid){
+            throw new IllegalArgumentException("존재하지 않는 댓글입니다.");
+        }
+        if(!dto.getUserId().equals(resultcomment.getUserId())){
+            throw new IllegalArgumentException("사용자가 일치하지 않습니다.");
+        }
+        return resultcomment;
     }
 
     private Comment findCommentById(Long commentid) {
         return commentRepository.findById(commentid).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 댓글입니다."));
     }
+
+
 }
