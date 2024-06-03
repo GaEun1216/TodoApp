@@ -2,6 +2,7 @@ package com.sparta.todoapp.service;
 
 import com.sparta.todoapp.dto.TodoRequestDto;
 import com.sparta.todoapp.entity.Todo;
+import com.sparta.todoapp.repository.CommentRepository;
 import com.sparta.todoapp.repository.TodoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -13,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class TodoService {
     private final TodoRepository todoRepository;
+    private final CommentRepository commentRepository;
 
     // 할일 생성
     public Todo createTodo(TodoRequestDto dto){
