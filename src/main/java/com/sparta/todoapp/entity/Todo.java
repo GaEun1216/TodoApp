@@ -25,19 +25,17 @@ public class Todo extends BaseEntity {
 
     private String content;
 
-    private String userName;
-
-    private String password;
+    @ManyToOne
+    @JoinColumn(name="user_id",nullable = false)
+    private User user;
 
     @OneToMany(mappedBy = "todo",cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
 
     @Builder
-    public Todo(String title, String content, String userName, String password) {
+    public Todo(String title, String content) {
         this.title = title;
         this.content = content;
-        this.userName = userName;
-        this.password = password;
     }
 
 
@@ -49,7 +47,4 @@ public class Todo extends BaseEntity {
         this.content = content;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 }

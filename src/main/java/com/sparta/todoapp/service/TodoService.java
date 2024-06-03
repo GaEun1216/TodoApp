@@ -2,6 +2,7 @@ package com.sparta.todoapp.service;
 
 import com.sparta.todoapp.dto.TodoRequestDto;
 import com.sparta.todoapp.entity.Todo;
+import com.sparta.todoapp.entity.User;
 import com.sparta.todoapp.repository.CommentRepository;
 import com.sparta.todoapp.repository.TodoRepository;
 import lombok.AllArgsConstructor;
@@ -16,8 +17,9 @@ public class TodoService {
     private final TodoRepository todoRepository;
 
     // 할일 생성
-    public Todo createTodo(TodoRequestDto dto){
-        var newTodo = dto.toEntity();
+    public Todo createTodo(TodoRequestDto dto, User user){
+        Todo newTodo = dto.toEntity();
+        newTodo.setUser(user);
         return todoRepository.save(newTodo);
     }
 
@@ -32,11 +34,12 @@ public class TodoService {
         return todoRepository.findAll(Sort.by("createdAt").descending());
     }
 
-    public Todo updateTodo(Long TodoId, TodoRequestDto dto) {
-        Todo todo = checkAndGetTodo(TodoId,dto.getPassword());
+    public Todo updateTodo(Long TodoId, TodoRequestDto dto, User user) {
+        Todo todo = checkAndGetTodo(TodoId,user.getPassword());
         todo.setTitle(dto.getTitle());
         todo.setContent(dto.getContent());
-        todo.setUserName(dto.getUserName());
+        todo.setUser(user);
+
         return todo;
     }
 
@@ -49,8 +52,7 @@ public class TodoService {
         Todo todo = getTodo(TodoId);
 
         // 비밀번호 체크
-        if(todo.getPassword() != null
-                && !todo.getPassword().equals(password)){
+        if(!todo.getUser().getPassword().equals(password)){
             throw new IllegalArgumentException();
         }
         return todo;
