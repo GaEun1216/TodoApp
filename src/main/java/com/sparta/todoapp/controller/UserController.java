@@ -1,6 +1,6 @@
 package com.sparta.todoapp.controller;
 
-import com.sparta.todoapp.d.SignupRequestDto;
+import com.sparta.todoapp.dto.SignupRequestDto;
 import com.sparta.todoapp.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

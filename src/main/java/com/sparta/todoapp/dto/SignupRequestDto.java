@@ -1,4 +1,4 @@
-package com.sparta.todoapp.d;
+package com.sparta.todoapp.dto;
 
 
 import jakarta.validation.constraints.NotBlank;

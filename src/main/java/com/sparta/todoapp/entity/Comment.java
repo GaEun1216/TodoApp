@@ -4,11 +4,13 @@ import com.sparta.todoapp.dto.CommentRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Setter
 @Table(name = "comment")
 @NoArgsConstructor
 public class Comment {
@@ -35,6 +37,10 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name="todo_id",nullable = false)
     private Todo todo;
+
+    @ManyToOne
+    @JoinColumn(name="user_id",nullable = false)
+    private User user;
 
     public Comment(CommentRequestDto request){
         this.contents = request.getContents();

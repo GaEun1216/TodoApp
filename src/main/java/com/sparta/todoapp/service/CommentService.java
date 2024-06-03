@@ -3,6 +3,7 @@ package com.sparta.todoapp.service;
 import com.sparta.todoapp.dto.CommentRequestDto;
 import com.sparta.todoapp.dto.CommentResponseDto;
 import com.sparta.todoapp.entity.Comment;
+import com.sparta.todoapp.entity.User;
 import com.sparta.todoapp.exception.DataNotFoundException;
 import com.sparta.todoapp.repository.CommentRepository;
 import com.sparta.todoapp.entity.Todo;
@@ -20,12 +21,13 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final TodoRepository todoRepository;
 
-    public CommentResponseDto createComment(Long Todoid, CommentRequestDto requestDto) {
+    public CommentResponseDto createComment(Long Todoid, CommentRequestDto requestDto, User user) {
         Todo todo = todoRepository.findById(Todoid).orElseThrow(
                 ()->new IllegalArgumentException("존재하지 않는 게시물 입니다."));
         Comment comment = new Comment(requestDto);
         comment.setTodo(todo);
         comment.setCreatedAt();
+        comment.setUser(user);
         Comment savecomment = commentRepository.save(comment);
         CommentResponseDto response = new CommentResponseDto(savecomment);
         return  response;
