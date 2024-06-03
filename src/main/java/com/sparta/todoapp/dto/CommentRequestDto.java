@@ -1,6 +1,5 @@
 package com.sparta.todoapp.dto;
 
-import com.sparta.todoapp.entity.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,12 +12,10 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class CommentRequestDto {
-
     private Long Id;
     private String contents;
     private String userName;
     private LocalDateTime createdAt;
     private Long TodoId;
-
 
 }

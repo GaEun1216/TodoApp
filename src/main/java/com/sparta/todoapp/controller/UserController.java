@@ -25,7 +25,6 @@ public class UserController {
 
     private final UserService userService;
 
-//    @Operation(summary = "회원가입", description = "별명, 사용자이름, 비밀번호는 필수입력이며, Admin계정은 별도 과정 필요함.")
     @PostMapping("/user/signup")
     public ResponseEntity<String> signup(@Valid @RequestBody SignupRequestDto requestDto, BindingResult bindingResult) {
         // Validation 예외처리

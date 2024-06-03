@@ -44,11 +44,6 @@ public class Comment extends BaseEntity {
         this.todo = todo;
     }
 
-    public void setTodo(Todo todo) {
-        this.todo = todo;
-    }
-
-
     public void update(CommentRequestDto dto) {
         this.contents = dto.getContents();
     }

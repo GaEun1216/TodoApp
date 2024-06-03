@@ -1,12 +1,10 @@
 package com.sparta.todoapp.controller;
 
-
 import com.sparta.todoapp.CommonResponse;
 import com.sparta.todoapp.dto.TodoRequestDto;
 import com.sparta.todoapp.dto.TodoResponseDto;
 import com.sparta.todoapp.entity.Todo;
 import com.sparta.todoapp.service.TodoService;
-import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,11 +13,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@AllArgsConstructor
 @RequestMapping("/api/todo")
 public class TodoController {
 
     public final TodoService todoService;
+
+    public TodoController(TodoService todoService){
+        this.todoService = todoService;
+    }
 
     // 일정 작성
     @PostMapping

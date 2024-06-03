@@ -9,8 +9,11 @@ import com.sparta.todoapp.repository.CommentRepository;
 import com.sparta.todoapp.entity.Todo;
 import com.sparta.todoapp.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Service
@@ -29,6 +32,10 @@ public class CommentService {
 
         return  response;
 
+    }
+
+    public List<Comment> getComments(User user) {
+        return commentRepository.findAll(Sort.by("createdAt").descending());
     }
 
     @Transactional

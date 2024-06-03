@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +39,7 @@ public class Todo extends BaseEntity {
         this.userName = userName;
         this.password = password;
     }
+
 
     public void setTitle(String title) {
         this.title = title;
