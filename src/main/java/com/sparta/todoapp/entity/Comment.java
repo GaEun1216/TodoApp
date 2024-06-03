@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Entity
 @Getter
 @Setter
@@ -44,7 +42,8 @@ public class Comment extends BaseEntity {
         this.todo = todo;
     }
 
-    public void update(CommentRequestDto dto) {
+    public void update(CommentRequestDto dto, User user) {
         this.contents = dto.getContents();
+        this.user = user;
     }
 }

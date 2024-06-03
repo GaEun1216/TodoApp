@@ -35,9 +35,9 @@ public class TodoController {
     }
 
     // 일정 선택 조회
-    @GetMapping("/{todoId}")
-    public ResponseEntity<CommonResponse<TodoResponseDto>> getTodo(@PathVariable Long todoId){
-        Todo todo = todoService.getTodo(todoId);
+    @GetMapping("/{TodoId}")
+    public ResponseEntity<CommonResponse<TodoResponseDto>> getTodo(@PathVariable Long TodoId){
+        Todo todo = todoService.getTodo(TodoId);
         TodoResponseDto response = new TodoResponseDto(todo);
         return ResponseEntity.ok().body(CommonResponse.<TodoResponseDto>builder()
                 .statusCode(HttpStatus.OK.value())
@@ -59,9 +59,9 @@ public class TodoController {
     }
 
     // 일정 변경
-    @PutMapping("/{todoId}")
-    public ResponseEntity<CommonResponse<TodoResponseDto>> putTodo(@PathVariable Long todoId,@RequestBody TodoRequestDto dto){
-        Todo todo = todoService.updateTodo(todoId, dto);
+    @PutMapping("/{TodoId}")
+    public ResponseEntity<CommonResponse<TodoResponseDto>> putTodo(@PathVariable Long TodoId,@RequestBody TodoRequestDto dto){
+        Todo todo = todoService.updateTodo(TodoId, dto);
         TodoResponseDto response = new TodoResponseDto(todo);
         return ResponseEntity.ok().body(CommonResponse.<TodoResponseDto>builder()
                 .statusCode(HttpStatus.OK.value())
@@ -70,9 +70,9 @@ public class TodoController {
     }
 
     // 일정 삭제
-    @DeleteMapping("/{todoId}")
-    public ResponseEntity<CommonResponse> deleteTodo(@PathVariable Long todoId,@RequestBody TodoRequestDto dto){
-        todoService.deleteTodo(todoId,dto.getPassword());
+    @DeleteMapping("/{TodoId}")
+    public ResponseEntity<CommonResponse> deleteTodo(@PathVariable Long TodoId,@RequestBody TodoRequestDto dto){
+        todoService.deleteTodo(TodoId,dto.getPassword());
         return ResponseEntity.ok().body(CommonResponse.builder()
                 .statusCode(HttpStatus.OK.value())
                 .msg("일정 삭제가 완료되었습니다.")

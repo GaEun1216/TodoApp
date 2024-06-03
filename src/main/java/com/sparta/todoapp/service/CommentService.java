@@ -23,8 +23,8 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final TodoRepository todoRepository;
 
-    public CommentResponseDto createComment(Long Todoid, CommentRequestDto requestDto, User user) {
-        Todo todo = todoRepository.findById(Todoid).orElseThrow(
+    public CommentResponseDto createComment(Long TodoId, CommentRequestDto requestDto, User user) {
+        Todo todo = todoRepository.findById(TodoId).orElseThrow(
                 ()->new IllegalArgumentException("존재하지 않는 게시물 입니다."));
         Comment comment = new Comment(requestDto,user,todo);
         Comment savecomment = commentRepository.save(comment);
@@ -34,37 +34,37 @@ public class CommentService {
 
     }
 
-    public List<Comment> getComments(User user) {
+    public List<Comment> getComments() {
         return commentRepository.findAll(Sort.by("createdAt").descending());
     }
 
     @Transactional
-    public CommentResponseDto updateComment(Long Todoid, Long Commentid, CommentRequestDto dto) {
-        Comment updatecomment = filter(Todoid,Commentid,dto);
-        updatecomment.update(dto);
+    public CommentResponseDto updateComment(Long TodoId, Long CommentId, CommentRequestDto dto, User user) {
+        Comment updatecomment = filter(TodoId,CommentId,user);
+        updatecomment.update(dto, user);
         CommentResponseDto response = new CommentResponseDto(updatecomment);
         return  response;
     }
 
-    public void deleteComment(Long Todoid, Long Commentid, CommentRequestDto dto) {
-        Comment deletecomment = filter(Todoid,Commentid,dto);
+    public void deleteComment(Long TodoId, Long CommentId, User user) {
+        Comment deletecomment = filter(TodoId,CommentId, user);
         commentRepository.delete(deletecomment);
     }
 
     // 예외 처리 필터링 함수
-    private Comment filter(Long todoid, Long commentid, CommentRequestDto dto){
-        Comment resultcomment = findCommentById(commentid);
-        if(resultcomment.getTodo().getTodoId() != todoid){
+    private Comment filter(Long TodoId, Long CommentId, User user){
+        Comment resultcomment = findCommentById(CommentId);
+        if(resultcomment.getTodo().getTodoId() != TodoId){
             throw new IllegalArgumentException("존재하지 않는 댓글입니다.");
         }
-        if(!dto.getUserName().equals(resultcomment.getUser().getUsername())){
+        if(! user.getUsername().equals(resultcomment.getUser().getUsername())){
             throw new IllegalArgumentException("사용자가 일치하지 않습니다.");
         }
         return resultcomment;
     }
 
-    private Comment findCommentById(Long commentid) {
-        return commentRepository.findById(commentid).orElseThrow(
+    private Comment findCommentById(Long CommentId) {
+        return commentRepository.findById(CommentId).orElseThrow(
                 () -> new DataNotFoundException("존재하지 않는 댓글입니다."));
     }
 

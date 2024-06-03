@@ -14,7 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 public class TodoService {
     private final TodoRepository todoRepository;
-    private final CommentRepository commentRepository;
 
     // 할일 생성
     public Todo createTodo(TodoRequestDto dto){
@@ -23,8 +22,8 @@ public class TodoService {
     }
 
     // 할일 단건 조회
-    public Todo getTodo(Long todoId) {
-        return todoRepository.findById(todoId)
+    public Todo getTodo(Long TodoId) {
+        return todoRepository.findById(TodoId)
                 .orElseThrow(IllegalArgumentException::new);
     }
 
@@ -33,21 +32,21 @@ public class TodoService {
         return todoRepository.findAll(Sort.by("createdAt").descending());
     }
 
-    public Todo updateTodo(Long todoId, TodoRequestDto dto) {
-        Todo todo = checkAndGetTodo(todoId,dto.getPassword());
+    public Todo updateTodo(Long TodoId, TodoRequestDto dto) {
+        Todo todo = checkAndGetTodo(TodoId,dto.getPassword());
         todo.setTitle(dto.getTitle());
         todo.setContent(dto.getContent());
         todo.setUserName(dto.getUserName());
         return todo;
     }
 
-    public void deleteTodo(Long todoId, String password) {
-        Todo todo = checkAndGetTodo(todoId,password);
+    public void deleteTodo(Long TodoId, String password) {
+        Todo todo = checkAndGetTodo(TodoId,password);
         todoRepository.delete(todo);
     }
 
-    private Todo checkAndGetTodo(Long todoId, String password){
-        Todo todo = getTodo(todoId);
+    private Todo checkAndGetTodo(Long TodoId, String password){
+        Todo todo = getTodo(TodoId);
 
         // 비밀번호 체크
         if(todo.getPassword() != null
