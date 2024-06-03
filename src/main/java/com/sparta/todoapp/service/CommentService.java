@@ -11,8 +11,7 @@ import com.sparta.todoapp.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Service
 @RequiredArgsConstructor
@@ -24,12 +23,10 @@ public class CommentService {
     public CommentResponseDto createComment(Long Todoid, CommentRequestDto requestDto, User user) {
         Todo todo = todoRepository.findById(Todoid).orElseThrow(
                 ()->new IllegalArgumentException("존재하지 않는 게시물 입니다."));
-        Comment comment = new Comment(requestDto);
-        comment.setTodo(todo);
-        comment.setCreatedAt();
-        comment.setUser(user);
+        Comment comment = new Comment(requestDto,user,todo);
         Comment savecomment = commentRepository.save(comment);
         CommentResponseDto response = new CommentResponseDto(savecomment);
+
         return  response;
 
     }
@@ -53,7 +50,7 @@ public class CommentService {
         if(resultcomment.getTodo().getTodoId() != todoid){
             throw new IllegalArgumentException("존재하지 않는 댓글입니다.");
         }
-        if(!dto.getUserId().equals(resultcomment.getUserId())){
+        if(!dto.getUserName().equals(resultcomment.getUser().getUsername())){
             throw new IllegalArgumentException("사용자가 일치하지 않습니다.");
         }
         return resultcomment;

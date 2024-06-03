@@ -4,16 +4,18 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@Setter
 @Entity
 @Table(name = "todo")
 @NoArgsConstructor
-public class Todo {
+public class Todo extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -28,8 +30,6 @@ public class Todo {
 
     private String password;
 
-    private LocalDateTime createdAt;
-
     @OneToMany(mappedBy = "todo",cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
 
@@ -39,7 +39,6 @@ public class Todo {
         this.content = content;
         this.userName = userName;
         this.password = password;
-        this.createdAt = LocalDateTime.now();
     }
 
     public void setTitle(String title) {

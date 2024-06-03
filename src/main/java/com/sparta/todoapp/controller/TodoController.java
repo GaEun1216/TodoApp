@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/v1.0/todo")
+@RequestMapping("/api/todo")
 public class TodoController {
 
     public final TodoService todoService;

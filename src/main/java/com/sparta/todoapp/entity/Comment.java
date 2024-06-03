@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Table(name = "comment")
-@NoArgsConstructor
-public class Comment {
+@NoArgsConstructor // 생성자 만들어주는 어노테이션
+public class Comment extends BaseEntity {
 
     /*
     | 댓글 필드 | 데이터 유형 |
@@ -30,10 +30,6 @@ public class Comment {
 
     private String contents;
 
-    private String userId;
-
-    private LocalDateTime createdAt;
-
     @ManyToOne
     @JoinColumn(name="todo_id",nullable = false)
     private Todo todo;
@@ -42,18 +38,16 @@ public class Comment {
     @JoinColumn(name="user_id",nullable = false)
     private User user;
 
-    public Comment(CommentRequestDto request){
+    public Comment(CommentRequestDto request,User user,Todo todo){
         this.contents = request.getContents();
-        this.userId = request.getUserId();
+        this.user = user;
+        this.todo = todo;
     }
 
     public void setTodo(Todo todo) {
         this.todo = todo;
     }
 
-    public void setCreatedAt() {
-        this.createdAt = LocalDateTime.now();
-    }
 
     public void update(CommentRequestDto dto) {
         this.contents = dto.getContents();

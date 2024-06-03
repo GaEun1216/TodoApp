@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.Length;
 @Setter
 @Table(name = "user")
 @NoArgsConstructor
-public class User extends Timestamped{
+public class User{
     /*
     아이디 : bigint
     별명 : varchar
