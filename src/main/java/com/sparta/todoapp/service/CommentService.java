@@ -23,6 +23,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final TodoRepository todoRepository;
 
+    @Transactional
     public CommentResponseDto createComment(Long TodoId, CommentRequestDto requestDto, User user) {
         Todo todo = todoRepository.findById(TodoId).orElseThrow(
                 ()->new IllegalArgumentException("존재하지 않는 게시물 입니다."));

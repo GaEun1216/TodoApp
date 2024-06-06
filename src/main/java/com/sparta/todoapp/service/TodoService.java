@@ -1,6 +1,8 @@
 package com.sparta.todoapp.service;
 
 import com.sparta.todoapp.dto.TodoRequestDto;
+import com.sparta.todoapp.dto.TodoResDto;
+import com.sparta.todoapp.entity.Comment;
 import com.sparta.todoapp.entity.Todo;
 import com.sparta.todoapp.entity.User;
 import com.sparta.todoapp.repository.CommentRepository;
@@ -15,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class TodoService {
     private final TodoRepository todoRepository;
+    private final CommentRepository commentRepository;
 
     // 할일 생성
     public Todo createTodo(TodoRequestDto dto, User user){
@@ -24,9 +27,11 @@ public class TodoService {
     }
 
     // 할일 단건 조회
-    public Todo getTodo(Long TodoId) {
-        return todoRepository.findById(TodoId)
-                .orElseThrow(IllegalArgumentException::new);
+    public TodoResDto getTodo(Long TodoId) {
+        List<Comment> comments = commentRepository.findByTodo_TodoId(TodoId);
+        Todo todo = todoRepository.findById(TodoId).orElseThrow(IllegalArgumentException::new);
+
+        return new TodoResDto(todo,comments);
     }
 
     // 할일 전체 조회
@@ -49,7 +54,7 @@ public class TodoService {
     }
 
     private Todo checkAndGetTodo(Long TodoId, String password){
-        Todo todo = getTodo(TodoId);
+        Todo todo = todoRepository.findById(TodoId).orElseThrow();
 
         // 비밀번호 체크
         if(!todo.getUser().getPassword().equals(password)){

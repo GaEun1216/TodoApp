@@ -32,6 +32,7 @@ public class Comment extends BaseEntity {
     @JoinColumn(name="todo_id",nullable = false)
     private Todo todo;
 
+
     @ManyToOne
     @JoinColumn(name="user_id",nullable = false)
     private User user;

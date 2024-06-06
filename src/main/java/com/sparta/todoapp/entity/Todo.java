@@ -29,7 +29,7 @@ public class Todo extends BaseEntity {
     @JoinColumn(name="user_id",nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "todo",cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
     @Builder

@@ -2,6 +2,7 @@ package com.sparta.todoapp.controller;
 
 import com.sparta.todoapp.CommonResponse;
 import com.sparta.todoapp.dto.TodoRequestDto;
+import com.sparta.todoapp.dto.TodoResDto;
 import com.sparta.todoapp.dto.TodoResponseDto;
 import com.sparta.todoapp.entity.Todo;
 import com.sparta.todoapp.security.UserDetailsImpl;
@@ -39,11 +40,11 @@ public class TodoController {
 
     // 일정 선택 조회
     @GetMapping("/{TodoId}")
-    public ResponseEntity<CommonResponse<TodoResponseDto>> getTodo(@PathVariable Long TodoId,
-                                                                   @AuthenticationPrincipal UserDetailsImpl userDetails){
-        Todo todo = todoService.getTodo(TodoId);
-        TodoResponseDto response = new TodoResponseDto(todo);
-        return ResponseEntity.ok().body(CommonResponse.<TodoResponseDto>builder()
+    public ResponseEntity<CommonResponse<TodoResDto>> getTodo(@PathVariable Long TodoId,
+                                                              @AuthenticationPrincipal UserDetailsImpl userDetails){
+        TodoResDto response = todoService.getTodo(TodoId);
+
+        return ResponseEntity.ok().body(CommonResponse.<TodoResDto>builder()
                 .statusCode(HttpStatus.OK.value())
                 .msg("일정 조회가 완료되었습니다.")
                 .data(response).build());
